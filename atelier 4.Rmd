@@ -1,0 +1,104 @@
+---
+title: "atelier 4"
+author: "Zoé"
+date: "05/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+````{r}
+nutriage <- read.csv("~/Downloads/Atelier4-master/nutriage.csv"
+names(nutriage)  
+```
+Taille est normale ? 
+
+```{r}
+mu_taille <- mean(nutriage$taille)
+sigma_taille <- sd(nutriage$taille)
+mu_taille
+sigma_taille
+pnorm(0,mu_taille,sigma_taille)
+```
+Taille  $=e^X$ ou $X\sim N(\mu\sigma)$ alors $X=\ln(\text{Taille})) \sim N(\mu,\sigma)$
+```{r}
+x <- log(nutriage$taille)
+mu_x <- mean(x)
+sigma_x <- sd(x)
+mu_x
+sigma_x
+n <- length(x)
+n
+````
+```{r}
+z <- (x-mu_x)/sigma_x
+t_simul <- rnorm(n)
+qqplot(z,t_simul)
+par(new=T)
+plot(z,z,type="l",col="red")
+```
+```{r}
+z <- rnorm(n)
+t_stimul <- rnorm(n)
+qqplot(z,t_stimul,xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type="l",col="red")
+````
+Poids est normal ? 
+
+```{r}
+mu_poids <- mean(nutriage$poids)
+sigma_poids <- sd(nutriage$poids)
+mu_poids
+sigma_poids
+pnorm(0,mu_poids,sigma_poids)
+```
+
+```{r}
+x <- log(nutriage$poids)
+mu_x <- mean(x)
+sigma_x <- sd(x)
+mu_x
+sigma_x
+n <- length(x)
+n
+````
+```{r}
+z <- (x-mu_x)/sigma_x
+t_simul <- rnorm(n)
+qqplot(z,t_simul)
+par(new=P)
+plot(z,z,type="l",col="red")
+```
+```{r}
+z <- rnorm(n)
+t_stimul <- rnorm(n)
+qqplot(z,t_stimul,xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type="l",col="red")
+````
+simulation 
+
+```{r}
+x <- log(nutriage$poids)
+mu_x <- mean(x)
+sigma_x <- sd(x)
+mu_x
+sigma_x
+simulation <- rnorm (1000,mu_x,sigma_x)
+poids_simul <- exp(simulation)
+hist(poids_simul)
+```
+## Modèle pour la variable café
+
+```{r}
+table(nutriage$cafe)/n
+mean(nutriage$cafe)
+var(nutriage$cafe)
+lambda <- (mean(nutriage$cafe)+var(nutriage$cafe))/2
+lambda
+table(rpois(1000,lambda))
+```
+```
